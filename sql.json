@@ -1,0 +1,46 @@
+{
+    "fornitore":{
+        "fields":["id::integer primary key autoincrement", "nome::text", "indirizzo::text", "mail::text", "telefono::text", "referente::text", "piva::text", "note::text"],
+        "relations":["mps>>mps_fornitori", "acquisto>>acquisti_fornitori"]
+    },
+    "mps":{
+        "fields":["id::integer primary key autoincrement", "nome::text", "note::text"],
+        "relations":["fornitore>>mps_fornitori", "acquisto>>acquisti_mps"]
+    },
+    "mps_fornitori":{
+        "fields":["fornitore_id::integer", "mps_id::integer", "prezzo::real"],
+        "relates":"fornitore>>mps"
+    },
+    "cliente":{
+        "fields":["id::integer primary key autoincrement", "nome::text", "indirizzo::text", "mail::text", "telefono::text", "referente::text", "piva::text", "note::text"],
+        "relations":["produzione>>clienti_produzione"]
+    },
+    "acquisto":{
+        "fields":["id::integer primary key autoincrement", "data::text", "qta::real", "costo::real", "note::text"],
+        "relations":["fornitore>>acquisti_fornitori", "mps>>acquisti_mps"]
+    },
+    "acquisti_fornitori":{
+        "fields":["acquisto_id::integer", "fornitore_id::integer"]
+    },
+    "acquisti_mps":{
+        "fields":["acquisto_id::integer", "mps_id::integer"]
+    },
+    "formula":{
+        "fields":["id::integer primary key autoincrement", "nome::text", "data::text", "note::text"],
+        "relations":["mps>>formule_mps", "produzione>>formule_produzione"] 
+    },
+    "formule_mps":{
+        "fields":["formula_id::integer", "mps_id::integer", "qta::real"]
+    },
+    "produzione":{
+        "fields":["id::integer primary key autoincrement", "data::text", "qta::real", "note::text", "prezzo::real"],
+        "relations":["formula>>formule_produzione", "cliente>>clienti_produzione"]
+    },
+    "clienti_produzione":{
+        "fields":["cliente_id::integer", "produzione_id::integer"]
+    },
+    "formule_produzione":{
+        "fields":["produzione_id::integer", "formula_id::integer"]
+    }
+
+}

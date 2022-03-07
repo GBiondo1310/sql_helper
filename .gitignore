@@ -1,0 +1,9 @@
+database.db
+__pycache__
+env
+backend
+_populate*
+tests
+del*
+reset.sh
+test*
